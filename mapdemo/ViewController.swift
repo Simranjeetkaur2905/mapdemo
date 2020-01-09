@@ -41,7 +41,29 @@ class ViewController: UIViewController {
         let annotation = MKPointAnnotation()
         annotation.title = "Toronto city"
         annotation.subtitle = "City of Dreams"
+        
+        annotation.coordinate = location
+        mapview.addAnnotation(annotation)
+        
+        //long press gesture
+        
+        let uilpgr = UILongPressGestureRecognizer(target: self, action: #selector(longpress))
+        
+        mapview.addGestureRecognizer(uilpgr)
         // Do any additional setup after loading the view.
+    }
+    @objc func longpress(gestureRecogniser :UIGestureRecognizer){
+        
+        let touchpoint = gestureRecogniser.location(in: mapview)
+        let coordinate  = mapview.convert(touchpoint, toCoordinateFrom: mapview)
+        let annotation = MKPointAnnotation()
+        annotation.title = "Place to visit"
+//        annotation.subtitle = "City of Dreams"
+//
+       annotation.coordinate = coordinate
+        
+        mapview.addAnnotation(annotation)
+        
     }
 
 
